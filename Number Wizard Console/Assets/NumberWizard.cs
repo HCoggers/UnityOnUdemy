@@ -4,16 +4,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NumberWizard : MonoBehaviour
-{ 
+{
 
-    static int min = 1;
-    static int max = 1000;
-    static int guess = (min + max) / 2;
+    static int min;
+    static int max;
+    static int guess;
 
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Welcome to Number Wizard");
+        StartGame();
+    }
+
+    void StartGame()
+    {
+        min = 1;
+        max = 1000;
+        guess = 500;
+        Debug.Log("Howdy, y'all! Welcome to Number Wizard!");
         Debug.Log("Pick a number!");
         Debug.Log($"The Highest number you can pick is {max}.");
         Debug.Log($"The Lowest number you can pick is {min}.");
@@ -29,19 +37,24 @@ public class NumberWizard : MonoBehaviour
         {
             Debug.Log("You chose Higher.");
             min = guess;
-            guess = (min + max) / 2;
-            Debug.Log($"Is your number {guess}?");
+            NextGuess();
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             Debug.Log("You chose Lower.");
             max = guess;
-            guess = (min + max) / 2;
-            Debug.Log($"Is your number {guess}?");
+            NextGuess();
         }
         else if (Input.GetKeyDown(KeyCode.Return))
         {
-            Debug.Log("Correct!");
+            Debug.Log("Ha HA! I have defeated you again!");
+            StartGame();
         }
+    }
+
+    void NextGuess()
+    {
+        guess = (min + max) / 2;
+        Debug.Log($"Is your number {guess}?");
     }
 }
